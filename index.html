@@ -313,17 +313,33 @@
 
   /* first moves */
   .moves { margin-top: 40px; }
-  .moves-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 18px; }
-  @media (max-width: 860px) { .moves-grid { grid-template-columns: 1fr; } }
+  .moves-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 18px; }
   .move {
     border: 1px solid var(--border); border-left: 3px solid var(--lime);
-    border-radius: 12px; padding: 20px; background: rgba(26,28,25,0.6);
+    border-radius: 12px; padding: 22px 24px; background: rgba(26,28,25,0.6);
   }
   .move .m-dom {
     font-size: 0.7rem; font-weight: 600; text-transform: uppercase;
-    letter-spacing: 0.12em; color: var(--fg-subtle); margin-bottom: 10px;
+    letter-spacing: 0.12em; color: var(--fg-subtle); margin-bottom: 8px;
   }
-  .move p { margin: 0; font-size: 0.92rem; line-height: 1.55; color: var(--fg); }
+  .move h4 {
+    margin: 0 0 4px; font-size: 1.08rem; font-weight: 600; letter-spacing: -0.01em;
+  }
+  .move .m-lede { margin: 0 0 14px; font-size: 0.88rem; color: var(--fg-muted); font-style: italic; }
+  .move ol { margin: 0; padding: 0 0 0 2px; list-style: none; counter-reset: mv; }
+  .move ol li {
+    counter-increment: mv; position: relative;
+    padding: 0 0 10px 34px; font-size: 0.92rem; line-height: 1.55; color: var(--fg);
+  }
+  .move ol li::before {
+    content: counter(mv); position: absolute; left: 0; top: 1px;
+    width: 22px; height: 22px; border-radius: 999px;
+    background: rgba(200,218,46,0.14); color: var(--lime);
+    font-size: 0.72rem; font-weight: 600;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .move .m-who { margin: 4px 0 0; font-size: 0.82rem; color: var(--fg-subtle); }
+  .move .m-who strong { color: var(--fg-muted); font-weight: 600; }
 
   /* CTA */
   .cta {
@@ -529,29 +545,21 @@
 
   var DOMAINS = [
     { key: 'intel',    name: 'Threat Awareness & Intelligence', short: 'Intelligence',
-      tag: 'Do you actually know who and what threatens you?',
-      move: 'Commission a baseline threat assessment. Until you know who could target you and why, every other security decision is guesswork.' },
+      tag: 'Do you actually know who and what threatens you?' },
     { key: 'digital',  name: 'Digital Footprint & Privacy', short: 'Digital',
-      tag: 'What can a capable adversary learn about you from open sources?',
-      move: 'Get a professional digital footprint review, then act on it — data-broker removal, and privacy structuring of titles and registers with your lawyers. Your public exposure is the map an adversary starts with.' },
+      tag: 'What can a capable adversary learn about you from open sources?' },
     { key: 'residence', name: 'Residential Security', short: 'Residence',
-      tag: 'Is your home a hard target — or just an expensive one?',
-      move: 'Have your primary residence independently assessed. Layered detection with a monitored response matters more than any single device.' },
+      tag: 'Is your home a hard target — or just an expensive one?' },
     { key: 'family',   name: 'Family & Personal Protection', short: 'Family',
-      tag: 'Are the people — not just the property — protected?',
-      move: 'Reduce predictability for the family members with the highest profile, and put a trusted protection arrangement in place before you need it.' },
+      tag: 'Are the people — not just the property — protected?' },
     { key: 'travel',   name: 'Travel Security', short: 'Travel',
-      tag: 'Does your security travel with you?',
-      move: 'Set a simple pre-travel protocol: destination assessment, journey plan, medical and evacuation cover, and one number that answers at 3am.' },
+      tag: 'Does your security travel with you?' },
     { key: 'staff',    name: 'Household Staff & Third Parties', short: 'Staff',
-      tag: 'The people you let inside your perimeter.',
-      move: 'Introduce structured vetting, confidentiality agreements, and a proper offboarding checklist. Most insider issues walk through the front door with a reference.' },
+      tag: 'The people you let inside your perimeter.' },
     { key: 'cyber',    name: 'Cyber & Communications', short: 'Cyber',
-      tag: 'The digital doors into your physical life.',
-      move: 'Harden family devices and agree a communications standard. Your digital doors open your physical ones.' },
+      tag: 'The digital doors into your physical life.' },
     { key: 'readiness', name: 'Readiness & Response', short: 'Readiness',
-      tag: 'When something happens, does a plan exist — or just adrenaline?',
-      move: 'Write the plan and walk the family through it once. Then review what your insurance actually transfers — most families have never checked cover against their real risks.' }
+      tag: 'When something happens, does a plan exist — or just adrenaline?' }
   ];
 
   /* Part A — exposure profile. w maps domain index -> weight. */
@@ -726,6 +734,273 @@
     { name: 'Integrated', min: 80, color: 'var(--lvl-5)',
       desc: 'Your security operates as one system — intelligence-led, professionally managed and tested. The task now is keeping it that way as your profile, assets and family evolve.' }
   ];
+
+  /* Tiered first-moves content v2.0: f = Foundation (<40), c = Consolidation (40-69), a = Assurance (70+) */
+  var MOVES = [
+  {
+    "f": {
+      "h": "Establish the baseline",
+      "lede": "Until you know who could target you and why, every other decision is guesswork.",
+      "acts": [
+        "Commission an independent threat assessment covering physical, digital and reputational exposure — who has the capability, intent and opportunity, and what has changed as your profile has grown.",
+        "Set alerts on the family's names as an interim measure — knowing they miss the closed forums and platforms where targeting actually incubates.",
+        "List your trigger events — deal announcements, media coverage, disputes, a wealth event — and agree that any of them prompts a fresh look at your risk.",
+        "Start keeping a file: every concerning approach is preserved — screenshot, date, channel — and goes to one agreed person. Never delete; it is the raw material of every future assessment."
+      ],
+      "who": "A security or intelligence adviser for the assessment; the file and the trigger list cost nothing and start this week."
+    },
+    "c": {
+      "h": "From ad hoc to standing",
+      "lede": "",
+      "acts": [
+        "If your last threat assessment is older than twelve months — or predates a major change in your circumstances — refresh it.",
+        "Move to professional monitoring, briefed properly: alternative platforms, dark web and doxxing sites, coded language — not brand-style keyword alerts — with escalation to someone whose job is to act at 2am.",
+        "If the same individual keeps appearing, manage them as a named case: one file, every contact, assessed against the recognised escalation indicators."
+      ],
+      "who": "An intelligence provider for monitoring; an adviser to draft the trigger-event protocol with you."
+    },
+    "a": {
+      "h": "Test the loop",
+      "lede": "",
+      "acts": [
+        "Test the monitoring end-to-end: does a genuine test signal reach the person who acts, and how fast?",
+        "Tie the assessment refresh cadence to your profile — not the calendar alone.",
+        "Brief the family and household on what to report — and close the loop by telling them what happened with the last thing they reported. People stop reporting into silence.",
+        "For the most public profiles, add impersonation monitoring: fake accounts and synthetic media of family members are now standard targeting tools."
+      ],
+      "who": "Your existing provider — ask them to prove the loop, not describe it."
+    }
+  },
+  {
+    "f": {
+      "h": "Find out what they can find",
+      "lede": "Your public exposure is the map an adversary starts with.",
+      "acts": [
+        "Commission a professional digital footprint review: what can an investigator connect to your home, family and movements in four hours of open-source work?",
+        "Fix the Australian exposures first: old property listings keep your interiors and floor plans online indefinitely — the portals remove them on request — and public registries do more damage here than US-style data brokers. Use paid removal services only for genuine international exposure.",
+        "Set family social-media rules today: no live locations, geotagging off, approve tags before they appear, no school or home identifiers — and extend the rules to the institutions; school newsletters and club photos publish more than the family does."
+      ],
+      "who": "A security adviser or privacy specialist for the review; the family rules and listing-removal requests cost nothing."
+    },
+    "c": {
+      "h": "Break the public links",
+      "lede": "",
+      "acts": [
+        "Register as silent electors — the whole household together, or the address stays linked to the family name — then apply to ASIC to substitute an alternative address. The recent register change hides addresses on extracts; it doesn't erase them.",
+        "Buy new assets through structures from the outset, with your lawyer and accountant — registers rarely purge history, so structure beats retrofitting.",
+        "Opt out of the property-data aggregators, and put the footprint review on a cycle — archives and brokers repopulate."
+      ],
+      "who": "Lawyer and accountant for structuring (this is their lane); a privacy specialist for the re-scan."
+    },
+    "a": {
+      "h": "Think like the investigator",
+      "lede": "",
+      "acts": [
+        "Commission an adversarial open-source exercise annually — a fresh set of eyes trying to find you, not a checklist.",
+        "Extend the review to the people around you: extended family, household staff, and the advisers who hold your information.",
+        "Monitor family email addresses for breaches and rotate exposed credentials within days — and know that serious doxxing can be reported to the eSafety Commissioner, who can compel platforms to remove it."
+      ],
+      "who": "An intelligence provider; ask for findings ranked by what an adversary would actually use."
+    }
+  },
+  {
+    "f": {
+      "h": "Assess before you buy",
+      "lede": "",
+      "acts": [
+        "Get an independent physical security assessment of your primary residence — independent meaning not from whoever wants to sell you the hardware.",
+        "Fix the unglamorous basics first: locks and strike plates, lighting, sightlines, and an alarm that is actually armed at night.",
+        "Connect the alarm back-to-base to a graded monitoring centre — and confirm the signal path doesn't depend on your home Wi-Fi or a single internet connection."
+      ],
+      "who": "An independent security assessor; then a quality installer working to the assessment, not a product catalogue."
+    },
+    "c": {
+      "h": "Make the pieces one system",
+      "lede": "",
+      "acts": [
+        "Integrate detection, cameras and access control so an event produces one clear picture, and one monitored response.",
+        "Assume a capable intruder brings a Wi-Fi jammer — the pattern is now well documented: cameras hardwired with recording on site, and alarm signalling over two paths, cellular and internet, so cutting one changes nothing.",
+        "Agree the response plan with your monitoring provider: who is called, in what order, and what happens in the first five minutes.",
+        "Establish a safe-haven point — a solid, lockable door on the sleeping floor, with communications that still work when the power and Wi-Fi don't — and walk the family through it once, calmly."
+      ],
+      "who": "A security integrator working to a design brief; your adviser writes the response plan with the provider."
+    },
+    "a": {
+      "h": "Prove the response",
+      "lede": "",
+      "acts": [
+        "Test the response end-to-end and time it — from activation to action, on a night nobody is expecting it.",
+        "Reassess after any renovation or new acquisition — and change every code, credential and key that circulated during the works.",
+        "Set vacancy protocols for secondary residences: the alarm stays armed, someone physically checks and documents it, and the insurer knows — unoccupancy clauses quietly void cover."
+      ],
+      "who": "Your provider runs the test; an independent reviewer reads the result — your insurer's risk engineers will often appraise a high-value home at no cost."
+    }
+  },
+  {
+    "f": {
+      "h": "Reduce the predictability",
+      "lede": "",
+      "acts": [
+        "Map the family's week like a hostile observer would. You can't move the school or the house — vary the times and routes between them, and treat arrivals and departures as the moments that matter.",
+        "Agree a family code word. It means “I’m in trouble”, and it verifies a real voice — ransom callers now use AI voice clones, and current FBI advice is a phrase only the family knows. On any ransom call, first try the person on known numbers.",
+        "Set a check-in habit with a defined miss: who calls whom, after how long. A check-in without a missed-check-in action is a hope, not a protocol.",
+        "If you think you're being followed: don't confront, and don't drive home — go somewhere busy, or to a police station."
+      ],
+      "who": "All of this is free and starts this week; identify a protection provider you trust before you need one."
+    },
+    "c": {
+      "h": "From contacts to arrangements",
+      "lede": "",
+      "acts": [
+        "Work up the ladder before buying the top rung: a security-trained driver and journey management for elevated movements usually come before standing close protection — wealth alone doesn't justify it; a credible threat does.",
+        "Put a standing arrangement in place with a vetted provider who knows the family and scales with the situation — protection scoped to the principal alone protects last decade's threat model; family members are now targeted directly.",
+        "Work with the school, not around it: keep the authorised-pickup list current and minimal, and agree how the school verifies identity and who they call on a suspicious approach."
+      ],
+      "who": "A protection provider; you and the school between you own the protocols."
+    },
+    "a": {
+      "h": "Rehearse the escalation",
+      "lede": "",
+      "acts": [
+        "Commission a surveillance-detection survey of the approaches to home, school and office — and brief the family on the pattern that matters: the same person over time, in different places, behaving slightly wrong. Report, never confront.",
+        "Rehearse the shift to an elevated posture so the family has done it once before it's real.",
+        "Review the arrangement annually as children age and profiles change; last year's plan protected last year's family."
+      ],
+      "who": "Your provider, with an independent review of the arrangement itself."
+    }
+  },
+  {
+    "f": {
+      "h": "A protocol, not a mood",
+      "lede": "",
+      "acts": [
+        "Subscribe to Smartraveller updates for everywhere you travel to and through, and save the 24/7 Consular Emergency Centre (+61 2 6261 3305) in every family phone — Australia no longer runs standing registration, so the subscription is the standing control.",
+        "Close the evacuation gap before booking: travel insurance gets you to the nearest adequate hospital; an evacuation membership gets you home. Know which you hold — evacuations run from US$25,000 to $300,000.",
+        "Establish one number a family member can call at 3am, from anywhere — and a check-in rhythm with a defined missed-check-in action."
+      ],
+      "who": "Your broker for insurance; evacuation memberships are bought direct. The rest is discipline, not spend."
+    },
+    "c": {
+      "h": "Plan the journey, not just the destination",
+      "lede": "",
+      "acts": [
+        "Run family travel to the standard corporates are held to — assess, prepare, monitor, respond, review (ISO 31030) — with destination assessments that are allowed to change the plan.",
+        "Journey management: the first and last kilometres are where travel risk actually lives. Never take the name-sign at face value — confirm the driver through the provider before walking out of arrivals.",
+        "Choose accommodation deliberately: a staffed 24-hour desk, controlled lift access, a room above the ground floor but within fire-ladder reach — and know your two nearest fire exits.",
+        "For genuinely high-risk destinations, travel on loaner devices and treat hotel Wi-Fi as hostile. Skip this for the Bali holiday — proportionality cuts both ways."
+      ],
+      "who": "A security provider with genuine in-country reach; assess the provider, not the brochure."
+    },
+    "a": {
+      "h": "Test the 3am call",
+      "lede": "",
+      "acts": [
+        "Test the 24/7 reach-back with a real scenario — and check it holds what a responder needs on day one: current itineraries, medical details, and the family's verification word.",
+        "Where the profile warrants kidnap & ransom cover, use the prevention services that come with it — briefings and training, not just the policy — and keep the cover's existence confidential; disclosure can undermine it.",
+        "Debrief incidents and near-misses; they are the cheapest training you will ever get."
+      ],
+      "who": "Your provider; the test is theirs to pass, not describe."
+    }
+  },
+  {
+    "f": {
+      "h": "Verify before the keys",
+      "lede": "",
+      "acts": [
+        "From today: verified references, a Nationally Coordinated Criminal History Check through an accredited provider, and a Working with Children Check wherever the role touches the children.",
+        "Have your lawyer draft a proper confidentiality agreement, signed before the start date, not after.",
+        "Map who currently holds keys, codes and alarm access. Most families are surprised by their own list."
+      ],
+      "who": "An investigations capability for vetting; an employment lawyer for the agreements."
+    },
+    "c": {
+      "h": "Structure the trust",
+      "lede": "",
+      "acts": [
+        "Apply one vetting standard every time, including contractor firms: identity, five-year employment and address history, criminal history, right to work — and financial probity for anyone who touches money.",
+        "Write the offboarding checklist: keys, codes, digital accounts — including smart-home and camera apps — and change the alarm code the day they leave, amicable or not.",
+        "Set access levels — the cleaner doesn't need the safe room code."
+      ],
+      "who": "Investigations for vetting; the checklist is a one-page document you enforce."
+    },
+    "a": {
+      "h": "Trust, then re-verify",
+      "lede": "",
+      "acts": [
+        "Re-vet on a cycle — a police check is a snapshot of the day it was issued, and people-screening standards now expect annual re-checks for high-access roles.",
+        "Hold contractor companies to the same standard as individuals: their vetting is your vetting.",
+        "Get the household-employer basics right — superannuation, workers compensation, withholding. Getting it wrong is legal exposure, and a financially aggrieved ex-employee is a threat vector, not just a compliance problem."
+      ],
+      "who": "Investigations; an employment lawyer or HR provider for the compliance review."
+    }
+  },
+  {
+    "f": {
+      "h": "Close the open doors",
+      "lede": "",
+      "acts": [
+        "This week: phishing-resistant MFA on the accounts that matter — email and Apple/Google IDs first, because they reset everything else — using passkeys or a hardware key, not SMS codes.",
+        "A family password manager, retire the reused passwords, and turn on automatic updates on every device.",
+        "Move sensitive family conversations to an encrypted app and make it the default — since late 2024, official advice to targeted individuals is to assume ordinary calls and SMS can be intercepted."
+      ],
+      "who": "You can do all of this in a weekend; get help if it stalls."
+    },
+    "c": {
+      "h": "Harden the household",
+      "lede": "",
+      "acts": [
+        "Get the home network professionally segmented — smart-home devices, guests, and the family's real devices on separate networks. The NSA's home-network guidance is the document to hand your IT provider.",
+        "Agree a family communications standard — what goes on which channel, what never goes in writing — with disappearing messages for the most sensitive threads.",
+        "Set a carrier PIN, and take your mobile number out of the recovery path for accounts that matter — Australian porting rules tightened in 2022, but a phone number should never be the key to your email.",
+        "For the most exposed family members, turn on the purpose-built hardening: Lockdown Mode on Apple devices, Advanced Protection on Google accounts."
+      ],
+      "who": "A personal-cyber specialist or trusted managed IT provider."
+    },
+    "a": {
+      "h": "Manage it like it matters",
+      "lede": "",
+      "acts": [
+        "Move to a managed arrangement — hardened devices, patching, review — scoped across privacy, devices, home network and family accounts, and evaluate providers against the full digital-protection scope, not a generic IT offer.",
+        "Commission a personal cyber assessment annually, scoped to the family, not a corporation.",
+        "Where crypto exists: custody designed so nobody at home can move significant funds under duress — keys distributed, time-delays on withdrawals — and holdings never discussed. The structure, not the person, is what says no."
+      ],
+      "who": "A digital protection specialist; a crypto-custody specialist where relevant."
+    }
+  },
+  {
+    "f": {
+      "h": "Write it down, walk it through",
+      "lede": "",
+      "acts": [
+        "Write the plan for the three most realistic bad nights: intrusion, medical emergency, and a threatening approach or contact. One page each.",
+        "Walk the family through it once, calmly — and agree a meeting point plus one out-of-area contact who can relay messages when local networks are down.",
+        "Put a bleeding-control kit in the house — tourniquet, haemostatic gauze, trauma dressing — with two people trained to use it. Severe bleeding kills in minutes, faster than any ambulance.",
+        "Sit down with your broker and review what your insurance actually transfers — and start with the rebuild number; most Australian homes are insured for less than they cost to rebuild."
+      ],
+      "who": "An adviser to draft the plans with you; your broker for the insurance review."
+    },
+    "c": {
+      "h": "Give it an owner",
+      "lede": "",
+      "acts": [
+        "Name the accountable owner of family security — a person, a budget, a review rhythm. Unowned security decays.",
+        "Extend and refresh the scenario plans; a plan nobody has read since it was written is a document, not a plan.",
+        "Assess the specialist covers honestly: personal cyber, medical evacuation, and kidnap & ransom where the profile warrants it — noting a K&R policy only works if its existence stays secret."
+      ],
+      "who": "The owner might be you, your EA or the family office — the point is that it's someone; your broker for specialist covers."
+    },
+    "a": {
+      "h": "Exercise, integrate, review",
+      "lede": "",
+      "acts": [
+        "Run a tabletop exercise annually — an hour around the dinner table beats a binder on a shelf — and have whoever referees it introduce a complication mid-scenario; the plan that survives an inject is a real plan.",
+        "Introduce your providers to each other: monitoring, protection, medical, insurance response. On a bad night they need to work as one system, and that's built beforehand.",
+        "After any incident or near-miss, review and adjust. The plan is a living thing or it is nothing."
+      ],
+      "who": "Your accountable owner runs it; an independent adviser referees the exercise."
+    }
+  }
+];
 
   var profAnswers = new Array(PROFILE.length).fill(null);
   var answers = new Array(QUESTIONS.length).fill(null);
@@ -980,10 +1255,17 @@
     var wrap = $('movesGrid');
     wrap.innerHTML = '';
     priority.slice(0, 3).forEach(function (r) {
+      var di = DOMAINS.indexOf(r.d);
+      var tier = r.m < 40 ? MOVES[di].f : (r.m < 70 ? MOVES[di].c : MOVES[di].a);
       var el = document.createElement('div');
       el.className = 'move';
-      el.innerHTML = '<div class="m-dom">' + r.d.name + '</div><p>' + r.d.move + '</p>' +
+      var html = '<div class="m-dom">' + r.d.name + '</div>' +
+        '<h4>' + tier.h + '</h4>' +
+        (tier.lede ? '<p class="m-lede">' + tier.lede + '</p>' : '') +
+        '<ol>' + tier.acts.map(function (a) { return '<li>' + a + '</li>'; }).join('') + '</ol>' +
+        '<p class="m-who"><strong>Who:</strong> ' + tier.who + '</p>' +
         '<div class="m-meta">Exposure: <em>' + expBand(r.e) + '</em> &nbsp;&middot;&nbsp; Maturity: <em>' + levelFor(r.m).name + '</em></div>';
+      el.innerHTML = html;
       wrap.appendChild(el);
     });
   }
