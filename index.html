@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<title>BASELINE — Family Security Maturity Assessment</title>
+<title>BASELINE — Family Security Maturity Indication</title>
 <style>
   @font-face {
     font-family: 'Red Hat Display';
@@ -432,9 +432,9 @@
   <!-- INTRO -->
   <section class="screen active" id="screen-intro">
     <div class="intro">
-      <p class="eyebrow">Family Security Maturity Assessment</p>
+      <p class="eyebrow">Family Security Maturity Indication</p>
       <h1>How protected is your family, really?</h1>
-      <p class="lead">A confidential assessment of your personal and family security. First we build your exposure profile — who would target a family like yours, and why. Then we assess what's actually in place across the eight domains that matter, and show you the gaps. Answer honestly. See your result instantly.</p>
+      <p class="lead">A confidential indication of your personal and family security. First we build your exposure profile — who would target a family like yours, and why. Then we assess what's actually in place across the eight domains that matter, and show you the gaps. Answer honestly. See your result instantly.</p>
       <div class="meta-row">
         <span class="chip"><strong>29</strong> questions</span>
         <span class="chip"><strong>~10</strong> minutes</span>
@@ -442,7 +442,7 @@
         <span class="chip">Built by operational security professionals</span>
       </div>
       <div class="domain-grid" id="domainGrid"></div>
-      <button class="btn" id="startBtn">Begin the assessment</button>
+      <button class="btn" id="startBtn">Begin</button>
       <p class="fine">This runs entirely in your browser — no server, no cookies, no analytics, no account. Switch to flight mode after the page loads and everything still works. Close the tab and your answers are gone.</p>
     </div>
   </section>
@@ -468,7 +468,7 @@
   <section class="screen" id="screen-results">
     <div class="results">
       <div class="res-head">
-        <p class="print-only">Chameleon Strategic — BASELINE Family Security Maturity Assessment</p>
+        <p class="print-only">Chameleon Strategic — BASELINE Family Security Maturity Indication</p>
         <p class="eyebrow">Your result</p>
         <div class="lvl-name" id="resLevelName"></div>
         <p class="lvl-desc" id="resLevelDesc"></p>
@@ -510,7 +510,7 @@
       <div class="cta">
         <div class="cta-inner">
           <h2>Your answers never left this device</h2>
-          <p>This assessment runs entirely in your browser. There is no server collecting responses, no account, no cookies, and no analytics — you can verify that yourself: open your browser's developer tools and watch the network panel, or load the page and switch to flight mode. Close the tab and your answers are gone.</p>
+          <p>This tool runs entirely in your browser. There is no server collecting responses, no account, no cookies, and no analytics — you can verify that yourself: open your browser's developer tools and watch the network panel, or load the page and switch to flight mode. Close the tab and your answers are gone.</p>
           <p>If the result is useful, keep a copy and work through it with the people who help you think about risk — your family, your family office, your lawyer, your broker.</p>
           <div class="cta-row">
             <button class="btn" id="printBtn">Print or save my results as PDF</button>
@@ -520,7 +520,7 @@
       </div>
 
       <div class="restart-row">
-        <button class="backlink" id="restartBtn">Retake the assessment</button>
+        <button class="backlink" id="restartBtn">Start again</button>
       </div>
     </div>
   </section>
@@ -735,7 +735,7 @@
       desc: 'Your security operates as one system — intelligence-led, professionally managed and tested. The task now is keeping it that way as your profile, assets and family evolve.' }
   ];
 
-  /* Tiered first-moves content v2.0: f = Foundation (<40), c = Consolidation (40-69), a = Assurance (70+) */
+  /* Tiered first-moves content v2.1: f = Foundation (<40), c = Consolidation (40-69), a = Assurance (70+) */
   var MOVES = [
   {
     "f": {
@@ -974,10 +974,9 @@
       "acts": [
         "Write the plan for the three most realistic bad nights: intrusion, medical emergency, and a threatening approach or contact. One page each.",
         "Walk the family through it once, calmly — and agree a meeting point plus one out-of-area contact who can relay messages when local networks are down.",
-        "Put a bleeding-control kit in the house — tourniquet, haemostatic gauze, trauma dressing — with two people trained to use it. Severe bleeding kills in minutes, faster than any ambulance.",
-        "Sit down with your broker and review what your insurance actually transfers — and start with the rebuild number; most Australian homes are insured for less than they cost to rebuild."
+        "Put a bleeding-control kit in the house — tourniquet, haemostatic gauze, trauma dressing — with two people trained to use it. Severe bleeding kills in minutes, faster than any ambulance."
       ],
-      "who": "An adviser to draft the plans with you; your broker for the insurance review."
+      "who": "An adviser to draft the plans with you."
     },
     "c": {
       "h": "Give it an owner",
@@ -1053,7 +1052,7 @@
     if (phase === 'profile') {
       pos = pIdx + 1;
       domLabel = 'Part one — your exposure profile';
-      sub = 'Who would target a family like yours, and why. This weights the rest of the assessment.';
+      sub = 'Who would target a family like yours, and why. This weights the rest of the questionnaire.';
     } else {
       pos = PROFILE.length + aIdx + 1;
       var dom = DOMAINS[item.d];
@@ -1162,10 +1161,10 @@
     $('resLevelDesc').textContent = lvl.desc;
 
     var gaps = assessed.filter(function (i) { return E[i] >= 25 && E[i] > M[i]; });
-    var noteHtml = 'Exposure profile: <strong>' + expBand(overallE) + ' (' + overallE + '/100)</strong>. Your maturity is assessed against this profile — ';
+    var noteHtml = 'Exposure profile: <strong>' + expBand(overallE) + ' (' + overallE + '/100)</strong>. Your maturity is shown against this profile — ';
     noteHtml += gaps.length === 0
-      ? 'no assessed domain currently shows exposure ahead of protection.'
-      : gaps.length + ' of ' + assessed.length + ' assessed domains show exposure running ahead of protection.';
+      ? 'no applicable domain currently shows exposure ahead of protection.'
+      : gaps.length + ' of ' + assessed.length + ' applicable domains show exposure running ahead of protection.';
     $('expNote').innerHTML = noteHtml;
 
     var segs = $('lvlBar').children;
@@ -1228,7 +1227,7 @@
         row.innerHTML =
           '<span class="name">' + d.name + '</span>' +
           '<span class="bar"></span>' +
-          '<span class="lvl na">Not assessed</span>';
+          '<span class="lvl na">Not applicable</span>';
       } else {
         var lvl = levelFor(M[i]);
         row.innerHTML =
