@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; font-src data:; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
 </head>
 <body>
@@ -305,6 +305,12 @@
 
   .exp-note { font-size: 0.9rem; color: var(--fg-subtle); margin: 14px 0 0; }
   .exp-note strong { color: var(--sand-300); font-weight: 600; }
+  .res-disclaimer { font-size: 0.78rem; color: var(--cs-ink-400); margin: 10px 0 0; font-style: italic; }
+
+  /* iPhone safe-area: keep the header and progress rail clear of the status bar */
+  .progress-rail { top: env(safe-area-inset-top, 0px); }
+  .topbar { padding-top: calc(28px + env(safe-area-inset-top, 0px)); }
+  .shell { padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); }
 
   .move .m-meta {
     margin-top: 14px; font-size: 0.68rem; font-weight: 600;
@@ -474,6 +480,7 @@
         <div class="lvl-name" id="resLevelName"></div>
         <p class="lvl-desc" id="resLevelDesc"></p>
         <p class="exp-note" id="expNote"></p>
+        <p class="res-disclaimer">This is a self-guided maturity indication based on your answers — not a formal security or threat assessment.</p>
         <div class="scoreband">
           <div class="score-num"><span id="resScore"></span><small> / 100</small></div>
           <div class="lvl-track">
@@ -736,14 +743,14 @@
       desc: 'Your security operates as one system — intelligence-led, professionally managed and tested. The task now is keeping it that way as your profile, assets and family evolve.' }
   ];
 
-  /* Tiered first-moves content v2.1: f = Foundation (<40), c = Consolidation (40-69), a = Assurance (70+) */
+  /* Tiered first-moves content v2.2: f = Foundation (<40), c = Consolidation (40-69), a = Assurance (70+) */
   var MOVES = [
   {
     "f": {
       "h": "Establish the baseline",
       "lede": "Until you know who could target you and why, every other decision is guesswork.",
       "acts": [
-        "Commission an independent threat assessment covering physical, digital and reputational exposure — who has the capability, intent and opportunity, and what has changed as your profile has grown.",
+        "Consider an independent threat assessment covering physical, digital and reputational exposure — who has the capability, intent and opportunity, and what has changed as your profile has grown.",
         "Set alerts on the family's names as an interim measure — knowing they miss the closed forums and platforms where targeting actually incubates.",
         "List your trigger events — deal announcements, media coverage, disputes, a wealth event — and agree that any of them prompts a fresh look at your risk.",
         "Start keeping a file: every concerning approach is preserved — screenshot, date, channel — and goes to one agreed person. Never delete; it is the raw material of every future assessment."
